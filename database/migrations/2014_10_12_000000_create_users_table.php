@@ -13,18 +13,17 @@ class CreateUsersTable extends Migration {
     public function up() {
         Schema::create( 'users', function ( Blueprint $table ) {
             $table->increments( 'id' );
-            $table->string( 'name' );
-            $table->string( 'middle_name' );
-            $table->string( 'surname' );
-            $table->string( 'cedula' );
-            $table->date( 'dob' );
-            $table->string( 'email' )->unique();
-            $table->string( 'residencia' );
-            $table->string( 'floor' );
-            $table->string( 'apartment' )->unique();
-            $table->string( 'parking_lot' )->unique();
+            $table->string( 'name', 50 )->nullable(false);
+            $table->string( 'surname', 50 )->nullable(false);
+            $table->integer( 'cedula', 15 )->unsigned()->nullable(false);
+            $table->string( 'phone', 15 )->nullable();
+            $table->string( 'email' )->unique()->nullable(false);
+            $table->integer( 'id_residency' )->unsigned()->nullable(false);
+            $table->integer( 'floor' )->unsigned()->nullable(false);
+            $table->string( 'apartment' )->unique()->nullable(false);
+            $table->string( 'parking_lot' )->unique()->nullable(false);
             $table->timestamp( 'email_verified_at' )->nullable();
-            $table->string( 'password' );
+            $table->string( 'password' )->nullable();
             $table->rememberToken();
             $table->timestamps();
         } );

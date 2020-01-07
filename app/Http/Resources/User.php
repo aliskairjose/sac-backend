@@ -29,7 +29,9 @@ class User extends JsonResource {
             'floor'=> $this->floor,
             'apartment'=> $this->apartment,
             'parking_lot'=> $this->parking_lot,
-            'is_mb'=> $this->is_mb
+            'is_mb'=> $this->is_mb,
+            'persistanceState' => 'Unchanged',
+
         ];
     }
 }

@@ -26,7 +26,7 @@ class Residency extends Resource
             'floors' => $this->floors,
             'apartments' => $this->apartments,
             'rif' => $this->rif,
-            'status' => 'New',
+            'persistanceState' => 'Unchanged',
         ];
     }
 }

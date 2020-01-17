@@ -23,7 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // estas rutas se pueden acceder sin proveer de un token válido.
 Route::post('/auth/login', 'Api\AuthController@login');
 Route::post('/auth/logout', 'Api\AuthController@logout');
-Route::post('/auth/register', 'Api\RegisterController@register');
+// Route::post('/auth/register', 'Api\RegisterController@register');
 
 
 // Password Reset Routes

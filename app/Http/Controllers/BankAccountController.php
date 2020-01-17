@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ResidencyCollection;
-use App\Residency;
-use App\User;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use App\Http\Resources\Residency as ResidencyResource;
-use App\Http\Resources\UserCollection;
+use App\BankAccount;
+use App\Http\Resources\BankAccountCollection;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
-class ResidencyController extends Controller
+class BankAccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +17,7 @@ class ResidencyController extends Controller
      */
     public function index()
     {
-        $data = new ResidencyCollection(Residency::all());
+        $data = new BankAccountCollection(BankAccount::all());
         return response()->json(
             [
                 'isSuccess' => true,
@@ -41,7 +37,7 @@ class ResidencyController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = Residency::create($request->all());
+            $data = BankAccount::create($request->all());
         } catch (\Exception $e) {
             return response()->json(
                 [
@@ -72,8 +68,7 @@ class ResidencyController extends Controller
     {
         try {
 
-            $data = new ResidencyCollection(Residency::findOrFail($id)->get());
-
+            $data = new BankAccountController(BankAccount::findOrFail($id)->get());
         } catch (Exception $e) {
             return response()->json(
                 [
@@ -103,8 +98,8 @@ class ResidencyController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $data = Residency::findOrFail($id)->update($request->all());
-        } catch (\Exception $e) {
+            $data = BankAccount::findOrFail($id)->update($request->all());
+        } catch (Exception $e) {
             return response()->json(
                 [
                     'isSuccess' => false,
@@ -132,7 +127,7 @@ class ResidencyController extends Controller
     public function delete($id)
     {
         try {
-            $data = Residency::findOrFail($id)->delete();
+            $data = BankAccount::findOrFail($id)->delete();
         } catch (ModelNotFoundException $e) {
             return response()->json(
                 [

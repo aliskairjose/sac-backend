@@ -47,6 +47,7 @@ class UserController extends Controller
                     'isSuccess' => false,
                     'message'   => 'Ha ocurrido un error',
                     'status'    => 400,
+                    'error'     =>$e
                 ]
             );
         }
@@ -56,7 +57,7 @@ class UserController extends Controller
                 'isSuccess' => true,
                 'message'   => 'El usuario ha sido creado con exito!.',
                 'status'    => 200,
-                'data'      => $data,
+                'objects'   => $data,
             ]
         );
     }
@@ -85,7 +86,7 @@ class UserController extends Controller
             [
                 'isSuccess' => true,
                 'status'    => 200,
-                'objects'    => $data,
+                'objects'   => $data,
             ]
         );
     }
@@ -104,6 +105,7 @@ class UserController extends Controller
             return response()->json(
                 [
                     'isSuccess' => false,
+                    'status'    => 400,
                     'errorInfo' => $e,
                 ]
             );
@@ -112,6 +114,7 @@ class UserController extends Controller
         return response()->json(
             [
                 'isSuccess' => true,
+                'status'    => 200,
                 'objects'   => $data
             ]
         );
@@ -128,24 +131,7 @@ class UserController extends Controller
     {
 
         try {
-           /*  $data = User::findOrFail($id);
-            $data->update($request->all()); */
-            $user = new UserResource( User::updateOrCreate(
-                [ 'id' => $request->id ],
-                [
-                    'name'         => $request->name,
-                    'surname'      => $request->surname,
-                    'cedula'       => $request->cedula,
-                    'phone'        => $request->phone,
-                    'email'        => $request->email,
-                    'id_residency' => $request->id_residency,
-                    'floor'        => $request->floor,
-                    'apartment'    => $request->apartment,
-                    'parking_lot'  => $request->parking_lot,
-                    'password'     => bcrypt( $request->password ),
-                    'is_mb'        => $request->is_mb
-                ]
-            ) );
+            User::findOrFail($id)->update($request->all());
         } catch (\Exception $e) {
             return response()->json(
                 [

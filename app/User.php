@@ -22,12 +22,12 @@ class  User extends Authenticatable implements JWTSubject {
         'cedula',
         'phone',
         'email',
-        'id_residency',
+        'type',
+        'residency_id',
         'floor',
         'apartment',
         'parking_lot',
         'password',
-        'is_mb'
     ];
 
     /**

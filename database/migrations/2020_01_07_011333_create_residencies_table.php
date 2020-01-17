@@ -15,7 +15,6 @@ class CreateResidenciesTable extends Migration
     {
         Schema::create('residencies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id')->index('user_id')->unsigned();
             $table->string('name', 50)->nullable(false);
             $table->string('email', 70)->unique()->nullable(false);
             $table->string('state', 30)->nullable();
@@ -26,7 +25,6 @@ class CreateResidenciesTable extends Migration
             $table->string('rif', 15)->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -9,20 +9,23 @@ use App\User;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\UserCollection;
 
-class UserController extends Controller {
+class UserController extends Controller
+{
 
     /**
      * Display a listing of the resource.
      *
      * @return JsonResponse
      */
-    public function index() {
-        $data = new UserCollection( User::all() );
+    public function index()
+    {
+        $data = new UserCollection(User::all());
         return response()->json(
             [
-                'count'     => $data->count(),
                 'isSuccess' => true,
-                'data'      => $data
+                'count'     => $data->count(),
+                'status'    => 200,
+                'object'    => $data,
             ]
         );
     }
@@ -33,29 +36,27 @@ class UserController extends Controller {
      * @param Request $request
      * @return JsonResponse
      */
-    public function store( Request $request ) {
+    public function store(Request $request)
+    {
 
-        $user = new UserResource( User::updateOrCreate(
-            [ 'cedula' => $request->cedula ],
-            [
-                'name'         => $request->name,
-                'surname'      => $request->surname,
-                'cedula'       => $request->cedula,
-                'phone'        => $request->phone,
-                'email'        => $request->email,
-                'id_residency' => $request->id_residency,
-                'floor'        => $request->floor,
-                'apartment'    => $request->apartment,
-                'parking_lot'  => $request->parking_lot,
-                'password'     => bcrypt( $request->password ),
-                'is_mb'        => $request->is_mb
-            ]
-        ) );
+        try {
+            $data = User::create($request->all());
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'message'   => 'Ha ocurrido un error',
+                    'status'    => 400,
+                ]
+            );
+        }
 
         return response()->json(
             [
                 'isSuccess' => true,
-                'data'      => $user,
+                'message'   => 'El usuario ha sido creado con exito!.',
+                'status'    => 200,
+                'data'      => $data,
             ]
         );
     }
@@ -66,15 +67,16 @@ class UserController extends Controller {
      * @param int $id
      * @return JsonResponse
      */
-    public function show( $id ) {
+    public function show($id)
+    {
         try {
-            $data = new UserResource( ( USer::findOrFail( $id ) ) );
-        }
-        catch ( \Exception $e ) {
+            $data = new UserResource((User::findOrFail($id)));
+        } catch (\Exception $e) {
             return response()->json(
                 [
                     'isSuccess' => false,
-                    'errorInfo' => $e,
+                    'status'    => 400,
+                    'message'   => $e,
                 ]
             );
         }
@@ -82,7 +84,8 @@ class UserController extends Controller {
         return response()->json(
             [
                 'isSuccess' => true,
-                'data'      => $data,
+                'status'    => 200,
+                'objects'    => $data,
             ]
         );
     }
@@ -93,11 +96,11 @@ class UserController extends Controller {
      * @param string $cedula
      * @return
      */
-    public function showByCedula( $id ) {
+    public function showByCedula($id)
+    {
         try {
-            $data = new UserResource( ( User::where( 'cedula', $id ) )->firstOrFail() );
-        }
-        catch ( ModelNotFoundException $e ) {
+            $data = new UserCollection((User::where('cedula', $id))->get());
+        } catch (ModelNotFoundException $e) {
             return response()->json(
                 [
                     'isSuccess' => false,
@@ -109,7 +112,7 @@ class UserController extends Controller {
         return response()->json(
             [
                 'isSuccess' => true,
-                'data'      => $data
+                'objects'   => $data
             ]
         );
     }
@@ -121,30 +124,44 @@ class UserController extends Controller {
      * @param int $id
      * @return JsonResponse
      */
-    public function update( Request $request, $id ) {
+    public function update(Request $request, $id)
+    {
 
-        $user = User::find( $id );
-
-        $user->name = $request->name;
-        $user->surname = $request->surname;
-        $user->cedula = $request->cedula;
-        $user->phone = $request->phone;
-        $user->id_residency = $request->id_residency;
-        $user->floor = $request->floor;
-        $user->apartment = $request->apartment;
-        $user->parking_lot = $request->parking_lot;
-        $user->password = bcrypt( $request->password );
-        $user->is_mb = $request->is_mb;
-        $user->save();
-
+        try {
+           /*  $data = User::findOrFail($id);
+            $data->update($request->all()); */
+            $user = new UserResource( User::updateOrCreate(
+                [ 'id' => $request->id ],
+                [
+                    'name'         => $request->name,
+                    'surname'      => $request->surname,
+                    'cedula'       => $request->cedula,
+                    'phone'        => $request->phone,
+                    'email'        => $request->email,
+                    'id_residency' => $request->id_residency,
+                    'floor'        => $request->floor,
+                    'apartment'    => $request->apartment,
+                    'parking_lot'  => $request->parking_lot,
+                    'password'     => bcrypt( $request->password ),
+                    'is_mb'        => $request->is_mb
+                ]
+            ) );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'message'   => $e,
+                ]
+            );
+        }
         return response()->json(
             [
                 'isSuccess' => true,
-                'data'      => $user,
-                'errorInfo' => null
+                'status'    => 200,
+                'message'   => 'EL usuario se ha actualizado con exito!.',
             ]
         );
-
     }
 
     /**
@@ -153,13 +170,26 @@ class UserController extends Controller {
      * @param int $id
      * @return JsonResponse
      */
-    public function delete( $id ) {
-        $user = User::findOrFail( $id );
-        $user->delete();
+    public function delete($id)
+    {
+        try {
+            $data = User::find($id);
+            $data->delete();
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'message'   => $e,
+                ]
+            );
+        }
 
         return response()->json(
             [
                 'isSuccess' => true,
+                'message'   => 'El usuario ha sido eliminado!.',
+                'status'    => 200,
             ]
         );
     }

@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ResidencyCollection;
 use App\Residency;
+use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Resources\Residency as ResidencyResource;
-
+use App\Http\Resources\UserCollection;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ResidencyController extends Controller
 {
@@ -21,9 +24,10 @@ class ResidencyController extends Controller
         $data = new ResidencyCollection(Residency::all());
         return response()->json(
             [
-                'count'     => $data->count(),
                 'isSuccess' => true,
-                'data'      => $data
+                'count'     => $data->count(),
+                'status'    => 200,
+                'object'    => $data,
             ]
         );
     }
@@ -36,24 +40,24 @@ class ResidencyController extends Controller
      */
     public function store(Request $request)
     {
-        $residency = new ResidencyResource(Residency::updateOrCreate(
-            ['email' => $request->email],
-            [
-                'name'       => $request->name,
-                'state'      => $request->state,
-                'providence' => $request->providence,
-                'address'    => $request->address,
-                'floors'     => $request->floors,
-                'apartments' => $request->apartments,
-                'rif'        => $request->rif,
-                'id_contact' => $request->id_contact
-            ]
-        ));
+        try {
+            $data = Residency::create($request->all());
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'message'   => 'Ha ocurrido un error',
+                    'status'    => 400,
+                ]
+            );
+        }
 
         return response()->json(
             [
                 'isSuccess' => true,
-                'data'      => $residency,
+                'message'   => 'La residencia se ha sido creada con exito!.',
+                'status'    => 200,
+                'data'      => $data,
             ]
         );
     }
@@ -67,12 +71,17 @@ class ResidencyController extends Controller
     public function show($id)
     {
         try {
-            $data = new ResidencyResource((Residency::findOrFail($id)));
-        } catch (\Exception $e) {
+            // $data = new ResidencyResource((Residency::findOrFail($id)));
+            $data = Residency::findOrFail($id);
+            $data['users'] = new UserCollection((User::where('id_residency', $data['id'])->get()));
+            // $data['users'] = new UserCollection((User::where('id_residency', $this->id)->get()));
+
+        } catch (Exception $e) {
             return response()->json(
                 [
                     'isSuccess' => false,
-                    'errorInfo' => $e,
+                    'status'    => 400,
+                    'message'   => $e,
                 ]
             );
         }
@@ -80,7 +89,8 @@ class ResidencyController extends Controller
         return response()->json(
             [
                 'isSuccess' => true,
-                'data'      => $data,
+                'status'    => 200,
+                'objects'   => $data,
             ]
         );
     }
@@ -94,22 +104,23 @@ class ResidencyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $residency = Residency::find($id);
-
-        $residency->name = $request->name;
-        $residency->state = $request->state;
-        $residency->providence = $request->providence;
-        $residency->address = $request->address;
-        $residency->floors = $request->floors;
-        $residency->apartments = $request->apartments;
-        $residency->rif = $request->rif;
-        $residency->id_contact = $request->id_contact;
-        $residency->save();
+        try {
+            $data = Residency::findOrFail($id);
+            $data->update($request->all());
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'message'   => $e,
+                ]
+            );
+        }
         return response()->json(
             [
                 'isSuccess' => true,
-                'data'      => $residency,
-                'errorInfo' => null
+                'status'    => 200,
+                'message'   => 'La residencia se ha actualizada con exito!.',
             ]
         );
     }
@@ -122,12 +133,32 @@ class ResidencyController extends Controller
      */
     public function delete($id)
     {
-        $user = Residency::findOrFail($id);
-        $user->delete();
+        try {
+            $data = Residency::findOrFail($id);
+            $data->delete();
+        } catch (ModelNotFoundException $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'message'   => 'No hubo coincidencia en la busqueda!.',
+                ]
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'message'   => $e,
+                ]
+            );
+        }
 
         return response()->json(
             [
                 'isSuccess' => true,
+                'message'   => 'La residencia ha sido eliminada!.',
+                'status'    => 200,
             ]
         );
     }

@@ -15,17 +15,18 @@ class CreateResidenciesTable extends Migration
     {
         Schema::create('residencies', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id')->index('user_id')->unsigned();
             $table->string('name', 50)->nullable(false);
-            $table->string('email', 70)->nullable(false);
+            $table->string('email', 70)->unique()->nullable(false);
             $table->string('state', 30)->nullable();
             $table->string('providence', 30)->nullable();
-            $table->longText('address')->nullable();
-            $table->unsignedInteger('floors')->nullable();
-            $table->unsignedInteger('apartments')->nullable();
+            $table->text('address')->nullable();
+            $table->string('floors', 2)->nullable();
+            $table->string('apartments', 10)->nullable();
             $table->string('rif', 15)->nullable();
-            $table->integer('user_id')->unsigned()->index('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

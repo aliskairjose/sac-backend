@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Resources;
-
+use App\User;
 use Illuminate\Http\Request;
-// use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\Resource;
 
 class Residency extends Resource
@@ -17,15 +17,16 @@ class Residency extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'state' => $this->state,
-            'providence' => $this->providence,
-            'address' => $this->address,
-            'floors' => $this->floors,
-            'apartments' => $this->apartments,
-            'rif' => $this->rif,
+            'id'            => $this->id,
+            'name'          => $this->name,
+            'email'         => $this->email,
+            'state'         => $this->state,
+            'providence'    => $this->providence,
+            'address'       => $this->address,
+            'floors'        => $this->floors,
+            'apartments'    => $this->apartments,
+            'rif'           => $this->rif,
+            // 'users'         => new UserCollection((User::where('id_residency', $this->id)->get())),
             'persistanceState' => 'Unchanged',
         ];
     }

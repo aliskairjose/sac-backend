@@ -23,6 +23,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // estas rutas se pueden acceder sin proveer de un token válido.
 Route::post('/auth/login', 'Api\AuthController@login');
 Route::post('/auth/logout', 'Api\AuthController@logout');
+Route::post('/auth/register', 'Api\RegisterController@register');
+
 
 // Password Reset Routes
 Route::post('password/email', 'Api\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
@@ -54,17 +56,17 @@ Route::post('/correo', function (Request $request) {
 Route::post('/logout', 'AuthController@logout');
 
 // Users Api's Routes
-Route::get('/users', 'UserController@index');
-Route::get('/users/{id}', 'UserController@show');
-Route::get('/users/cedula/{id}', 'UserController@showByCedula');
-Route::post('/users/save', 'UserController@store');
-// Route::post( '/users/update/{id}', 'UserController@update' );
-Route::delete('/users/{id}', 'UserController@delete');
+Route::get('users', 'UserController@index');
+Route::get('users/{id}', 'UserController@show');
+Route::get('users/cedula/{id}', 'UserController@showByCedula');
+Route::post('users', 'UserController@store');
+Route::put( 'users/{id}', 'UserController@update' );
+Route::delete('users/{id}', 'UserController@delete');
 
 // Residency Api's Routes
-Route::get('/residency', 'ResidencyController@index');
-Route::get('/residency/{id}', 'ResidencyController@show');
-Route::post('/residency/save', 'ResidencyController@store');
-// Route::post( '/residency/update/{id}', 'ResidencyController@update' );
-Route::delete('/residency/{id}', 'ResidencyController@delete');
+Route::get('residency', 'ResidencyController@index');
+Route::get('residency/{id}', 'ResidencyController@show');
+Route::post('residency', 'ResidencyController@store');
+Route::put( 'residency/{id}', 'ResidencyController@update' );
+Route::delete('residency/{id}', 'ResidencyController@delete');
 //} );

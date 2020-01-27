@@ -51,22 +51,22 @@ Route::post('/correo', function (Request $request) {
     ]);
 });
 
-//Route::group( [ 'middleware' => [ 'jwt.verify' ] ], function () {
-/*AÑADE AQUI LAS RUTAS QUE QUIERAS PROTEGER CON JWT*/
-Route::post('/logout', 'AuthController@logout');
+Route::group(['middleware' => ['jwt.verify']], function () {
+    /*AÑADE AQUI LAS RUTAS QUE QUIERAS PROTEGER CON JWT*/
+    Route::post('/logout', 'AuthController@logout');
 
-// Users Api's Routes
-Route::get('users', 'UserController@index');
-Route::get('users/{id}', 'UserController@show');
-Route::get('users/cedula/{id}', 'UserController@showByCedula');
-Route::post('users', 'UserController@store');
-Route::put( 'users/{id}', 'UserController@update' );
-Route::delete('users/{id}', 'UserController@delete');
+    // Users Api's Routes
+    Route::get('users', 'UserController@index');
+    Route::get('users/{id}', 'UserController@show');
+    Route::get('users/cedula/{id}', 'UserController@showByCedula');
+    Route::post('users', 'UserController@store');
+    Route::put('users/{id}', 'UserController@update');
+    Route::delete('users/{id}', 'UserController@delete');
 
-// Residency Api's Routes
-Route::get('residency', 'ResidencyController@index');
-Route::get('residency/{id}', 'ResidencyController@show');
-Route::post('residency', 'ResidencyController@store');
-Route::put( 'residency/{id}', 'ResidencyController@update' );
-Route::delete('residency/{id}', 'ResidencyController@delete');
-//} );
+    // Residency Api's Routes
+    Route::get('residency', 'ResidencyController@index');
+    Route::get('residency/{id}', 'ResidencyController@show');
+    Route::post('residency', 'ResidencyController@store');
+    Route::put('residency/{id}', 'ResidencyController@update');
+    Route::delete('residency/{id}', 'ResidencyController@delete');
+});

@@ -9,5 +9,5 @@ class BankAccount extends Model
 {
     use Notifiable;
 
-    protected $fillable = [ 'bank_id', 'residency_id', 'bank_name', 'account_number', 'type' ];
+    protected $fillable = [ 'bank_id', 'residency_id', 'account_number', 'type' ];
 }

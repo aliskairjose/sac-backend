@@ -17,13 +17,12 @@ class CreateBankAccountsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('bank_id')->index('bank_id')->unsigned();
             $table->integer('residency_id')->index('residency_id')->unsigned();
-            $table->string('bank_name', 100);
             $table->string('account_number', 30)->unique();
             $table->string('type', 25);
             $table->timestamps();
 
-            $table->foreign('bank_id')->references('id')->on('banks');
-            $table->foreign('residency_id')->references('id')->on('residencies');
+           $table->foreign('bank_id')->references('id')->on('banks')->onDelete('cascade');
+           $table->foreign('residency_id')->references('id')->on('residences')->onDelete('cascade');
         });
     }
 

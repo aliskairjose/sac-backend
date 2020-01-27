@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Database\Connection;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +16,16 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    $data = '';
+    try {
+        DB::connection()->getPdo();
+        $data =  "Connected successfully to: " . DB::connection()->getDatabaseName();
+    } catch (\Exception $e) {
+        die("Could not connect to the database. Please check your configuration. error:" . $e );
+    }
+
+    return view('welcome')->with('data', $data);
+
 });
 
 /* Route::get('/login', function () {

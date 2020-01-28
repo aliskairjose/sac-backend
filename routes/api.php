@@ -69,4 +69,11 @@ Route::post('/correo', function (Request $request) {
     Route::post('residences', 'ResidencyController@store');
     Route::put('residences/{id}', 'ResidencyController@update');
     Route::delete('residences/{id}', 'ResidencyController@delete');
+
+    // Accounts Routes
+    Route::get('accounts', 'BankAccountController@index');
+    Route::get('accounts/{id}', 'BankAccountController@show');
+    Route::post('accounts', 'BankAccountController@store');
+    Route::put('accounts/{id}', 'BankAccountController@update');
+    Route::delete('accounts/{id}', 'BankAccountController@delete');
 // });

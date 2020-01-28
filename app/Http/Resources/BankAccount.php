@@ -15,11 +15,12 @@ class BankAccount extends JsonResource
     public function toArray($request)
     {
         return [
-            'bank_id'           => $this->bank_id,
-            'residency_id'      => $this->residency_id,
-            'bank_name'         => $this->bank_name,
-            'account_number'    => $this->account_number,
-            'type'              => $this->type
+          'id'             => $this->id,
+          'bank_id'        => $this->bank_id,
+          'residency_id'   => $this->residency_id,
+          'bank_name'      => $this->bank->name,
+          'account_number' => $this->account_number,
+          'type'           => $this->type
         ];
     }
 }

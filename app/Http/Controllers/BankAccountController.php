@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\BankAccount;
+use App\Http\Resources\BankAccount as BankAccountResource;
 use App\Http\Resources\BankAccountCollection;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class BankAccountController extends Controller
@@ -19,19 +21,19 @@ class BankAccountController extends Controller
     {
         $data = new BankAccountCollection(BankAccount::all());
         return response()->json(
-            [
-                'isSuccess' => true,
-                'count'     => $data->count(),
-                'status'    => 200,
-                'object'    => $data,
-            ]
+          [
+            'isSuccess' => true,
+            'count'     => $data->count(),
+            'status'    => 200,
+            'object'    => $data,
+          ]
         );
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function store(Request $request)
@@ -40,59 +42,60 @@ class BankAccountController extends Controller
             $data = BankAccount::create($request->all());
         } catch (\Exception $e) {
             return response()->json(
-                [
-                    'isSuccess' => false,
-                    'message'   => 'Ha ocurrido un error',
-                    'status'    => 400,
-                ]
+              [
+                'isSuccess' => false,
+                'message'   => 'Ha ocurrido un error',
+                'status'    => 400,
+                'error'     => $e
+              ]
             );
         }
 
         return response()->json(
-            [
-                'isSuccess' => true,
-                'message'   => 'La residencia se ha sido creada con exito!.',
-                'status'    => 200,
-                'data'      => $data,
-            ]
+          [
+            'isSuccess' => true,
+            'message'   => 'Item creado con éxito!.',
+            'status'    => 200,
+            'data'      => $data,
+          ]
         );
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return JsonResponse
      */
     public function show($id)
     {
         try {
 
-            $data = new BankAccountController(BankAccount::findOrFail($id)->get());
+            $data = new BankAccountResource(BankAccount::findOrFail($id));
         } catch (Exception $e) {
             return response()->json(
-                [
-                    'isSuccess' => false,
-                    'status'    => 400,
-                    'message'   => $e,
-                ]
+              [
+                'isSuccess' => false,
+                'status'    => 400,
+                'message'   => $e,
+              ]
             );
         }
 
         return response()->json(
-            [
-                'isSuccess' => true,
-                'status'    => 200,
-                'objects'   => $data,
-            ]
+          [
+            'isSuccess' => true,
+            'status'    => 200,
+            'objects'   => $data,
+          ]
         );
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int $id
+     * @param  Request  $request
+     * @param  int  $id
      * @return JsonResponse
      */
     public function update(Request $request, $id)
@@ -101,57 +104,57 @@ class BankAccountController extends Controller
             $data = BankAccount::findOrFail($id)->update($request->all());
         } catch (Exception $e) {
             return response()->json(
-                [
-                    'isSuccess' => false,
-                    'status'    => 400,
-                    'message'   => $e,
-                ]
+              [
+                'isSuccess' => false,
+                'status'    => 400,
+                'message'   => $e,
+              ]
             );
         }
         return response()->json(
-            [
-                'isSuccess' => true,
-                'status'    => 200,
-                'message'   => 'La residencia se ha actualizada con exito!.',
-                'objects'   => $data
-            ]
+          [
+            'isSuccess' => true,
+            'status'    => 200,
+            'message'   => 'Item actualizado.',
+            'objects'   => $data
+          ]
         );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return JsonResponse
      */
     public function delete($id)
     {
         try {
-            $data = BankAccount::findOrFail($id)->delete();
+            BankAccount::findOrFail($id)->delete();
         } catch (ModelNotFoundException $e) {
             return response()->json(
-                [
-                    'isSuccess' => false,
-                    'status'    => 400,
-                    'message'   => 'No hubo coincidencia en la busqueda!.',
-                ]
+              [
+                'isSuccess' => false,
+                'status'    => 400,
+                'message'   => 'No hubo coincidencia en la busqueda!.',
+              ]
             );
         } catch (\Exception $e) {
             return response()->json(
-                [
-                    'isSuccess' => false,
-                    'status'    => 400,
-                    'message'   => $e,
-                ]
+              [
+                'isSuccess' => false,
+                'status'    => 400,
+                'message'   => $e,
+              ]
             );
         }
 
         return response()->json(
-            [
-                'isSuccess' => true,
-                'status'    => 200,
-                'message'   => 'La residencia ha sido eliminada!.',
-            ]
+          [
+            'isSuccess' => true,
+            'status'    => 200,
+            'message'   => 'Item eliminado!.',
+          ]
         );
     }
 }

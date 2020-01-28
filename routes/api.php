@@ -23,7 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // estas rutas se pueden acceder sin proveer de un token válido.
 Route::post('/auth/login', 'Api\AuthController@login');
 Route::post('/auth/logout', 'Api\AuthController@logout');
-// Route::post('/auth/register', 'Api\RegisterController@register');
+Route::post('/auth/register', 'Api\RegisterController@register');
 
 
 // Password Reset Routes
@@ -51,7 +51,7 @@ Route::post('/correo', function (Request $request) {
     ]);
 });
 
-Route::group(['middleware' => ['jwt.verify']], function () {
+// Route::group(['middleware' => ['jwt.verify']], function () {
     /*AÑADE AQUI LAS RUTAS QUE QUIERAS PROTEGER CON JWT*/
     Route::post('/logout', 'AuthController@logout');
 
@@ -64,9 +64,9 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::delete('users/{id}', 'UserController@delete');
 
     // Residency Api's Routes
-    Route::get('residency', 'ResidencyController@index');
-    Route::get('residency/{id}', 'ResidencyController@show');
-    Route::post('residency', 'ResidencyController@store');
-    Route::put('residency/{id}', 'ResidencyController@update');
-    Route::delete('residency/{id}', 'ResidencyController@delete');
-});
+    Route::get('residences', 'ResidencyController@index');
+    Route::get('residences/{id}', 'ResidencyController@show');
+    Route::post('residences', 'ResidencyController@store');
+    Route::put('residences/{id}', 'ResidencyController@update');
+    Route::delete('residences/{id}', 'ResidencyController@delete');
+// });

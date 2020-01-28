@@ -26,8 +26,8 @@ class Residency extends Resource
             'floors'            => $this->floors,
             'apartments'        => $this->apartments,
             'rif'               => $this->rif,
-            'owners'            => $this->users,
-            'accounts'          => $this->accounts,
+            'owners'            => new UserCollection($this->users),
+//            'accounts'          => $this->accounts,
             'persistanceState'  => 'Unchanged',
         ];
     }

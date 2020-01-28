@@ -13,7 +13,7 @@ class CreateResidencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('residences', function (Blueprint $table) {
+        Schema::create('residencies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 50)->nullable(false);
             $table->string('email', 70)->unique()->nullable(false);

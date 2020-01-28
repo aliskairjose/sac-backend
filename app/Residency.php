@@ -15,7 +15,7 @@ class Residency extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'state', 'providence', 'address', 'floors', 'apartments', 'rif', 'id_contact'
+        'name', 'email', 'state', 'providence', 'address', 'floors', 'apartments', 'rif'
     ];
 
     /**

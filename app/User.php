@@ -67,8 +67,19 @@ class  User extends Authenticatable implements JWTSubject {
         $this->notify(new ResetPasswordNotification($token));
     }
 
-    public function rol()
+    /**
+     * Relacion uno a uno con Role
+     */
+    public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * Relación uno a uno con Residencia
+     */
+    public function residency()
+    {
+        return $this->belongsTo(Residency::class);
     }
 }

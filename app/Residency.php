@@ -41,7 +41,7 @@ class Residency extends Model
     }
 
     /**
-     * Relacion uno a muchos con Usuario
+     * Relacion uno a muchos con Accounts
      */
     public function accounts()
     {

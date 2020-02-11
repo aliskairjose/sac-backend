@@ -10,4 +10,8 @@ class Bank extends Model
     use Notifiable;
 
     protected $fillable = ['name'];
+
+    /**
+     * Reación uno a muchos con Accounts
+     */
 }

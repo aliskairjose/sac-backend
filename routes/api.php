@@ -52,7 +52,7 @@ Route::post('/correo', function (Request $request) {
     ]);
 });
 
-Route::group(['middleware' => ['jwt.verify']], function () {
+// Route::group(['middleware' => ['jwt.verify']], function () {
     /*AÑADE AQUI LAS RUTAS QUE QUIERAS PROTEGER CON JWT*/
     Route::post('/logout', 'AuthController@logout');
 
@@ -77,4 +77,4 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('accounts', 'BankAccountController@store');
     Route::put('accounts/{id}', 'BankAccountController@update');
     Route::delete('accounts/{id}', 'BankAccountController@delete');
-});
+// });

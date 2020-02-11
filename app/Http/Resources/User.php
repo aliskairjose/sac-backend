@@ -24,7 +24,7 @@ class User extends JsonResource {
             'cedula'            => $this->cedula,
             'phone'             => $this->phone,
             'email'             => $this->email,
-            'role'              =>
+            'role'              => $this->role,
             'residency_id'      => $this->residency_id,
             'floor'             => $this->floor,
             'apartment'         => $this->apartment,

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\UserCollection;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -40,14 +41,27 @@ class UserController extends Controller
     {
 
         try {
-            $data = User::create($request->all());
+            $data = User::create(
+                [
+                    'name'          => $request->name,
+                    'surname'       => $request->surname,
+                    'cedula'        => $request->cedula,
+                    'phone'         => $request->phone,
+                    'email'         => $request->email,
+                    'residency_id'  => $request->residency_id,
+                    'floor'         => $request->floor,
+                    'apartment'     => $request->apartment,
+                    'parking_lot'   => $request->parking_lot,
+                    'password'      => Hash::make($request->password),
+                ]
+            );
         } catch (\Exception $e) {
             return response()->json(
                 [
                     'isSuccess' => false,
                     'message'   => 'Ha ocurrido un error',
                     'status'    => 400,
-                    'error'     =>$e
+                    'error'     => $e
                 ]
             );
         }

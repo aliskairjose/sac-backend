@@ -64,12 +64,12 @@ Route::post('/correo', function (Request $request) {
     Route::put('users/{id}', 'UserController@update');
     Route::delete('users/{id}', 'UserController@delete');
 
-    // Residency Api's Routes
-    Route::get('residences', 'ResidencyController@index');
-    Route::get('residences/{id}', 'ResidencyController@show');
-    Route::post('residences', 'ResidencyController@store');
-    Route::put('residences/{id}', 'ResidencyController@update');
-    Route::delete('residences/{id}', 'ResidencyController@delete');
+    // Building Api's Routes
+    Route::get('buildings', 'BuildingController@index');
+    Route::get('buildings/{id}', 'BuildingController@show');
+    Route::post('buildings', 'BuildingController@store');
+    Route::put('buildings/{id}', 'BuildingController@update');
+    Route::delete('buildings/{id}', 'BuildingController@delete');
 
     // Accounts Routes
     Route::get('accounts', 'BankAccountController@index');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateResidencesTable extends Migration
+class CreateBuildingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateResidencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('residencies', function (Blueprint $table) {
+        Schema::create('buildings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 50)->nullable(false);
             $table->string('email', 70)->unique()->nullable(false);

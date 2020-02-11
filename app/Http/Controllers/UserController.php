@@ -39,7 +39,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         try {
             $data = User::create(
                 [
@@ -48,7 +47,8 @@ class UserController extends Controller
                     'cedula'        => $request->cedula,
                     'phone'         => $request->phone,
                     'email'         => $request->email,
-                    'residency_id'  => $request->residency_id,
+                    'building_id'  => $request->building_id,
+                    'role_id'       => 3,
                     'floor'         => $request->floor,
                     'apartment'     => $request->apartment,
                     'parking_lot'   => $request->parking_lot,

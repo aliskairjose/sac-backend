@@ -22,7 +22,7 @@ class  User extends Authenticatable implements JWTSubject {
         'cedula',
         'phone',
         'email',
-        'residency_id',
+        'building_id',
         'floor',
         'apartment',
         'parking_lot',
@@ -78,8 +78,8 @@ class  User extends Authenticatable implements JWTSubject {
     /**
      * Relación uno a uno con Residencia
      */
-    public function residency()
+    public function building()
     {
-        return $this->belongsTo(Residency::class);
+        return $this->belongsTo(Building::class);
     }
 }

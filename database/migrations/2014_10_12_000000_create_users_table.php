@@ -18,13 +18,13 @@ class CreateUsersTable extends Migration {
             $table->string( 'cedula', 15 )->index('cedula')->nullable(false);
             $table->string( 'phone', 15 )->nullable();
             $table->string( 'email' )->unique()->nullable(false);
-            $table->string( 'type', 15 )->nullable()->default('PROP')->comment('COND - Condominio, PROP - Propietario');
-            $table->integer( 'residency_id' )->unsigned()->nullable(false);
+            $table->integer( 'building_id' )->unsigned()->nullable(false);
             $table->string('floor', 2)->nullable(false);
             $table->string('apartment', 10)->unique()->nullable(false);
             $table->string('parking_lot', 4)->unique()->nullable();
             $table->string( 'password' )->nullable(false);
             $table->timestamps();
+            $table->foreign('building_id')->references('id')->on('buildings');
 
         } );
     }

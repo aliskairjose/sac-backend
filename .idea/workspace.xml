@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ac51a040-7ac1-4c8d-87a9-318cd8570fbc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Bank.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/Bank.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/BankCollection.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/BankAccount.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/BankAccount.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BankAccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BankAccountController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/BankAccount.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/BankAccount.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/Residency.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/Residency.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +186,8 @@
       <workItem from="1576503147254" duration="601000" />
       <workItem from="1576604615125" duration="15000" />
       <workItem from="1576604641802" duration="14000" />
-      <workItem from="1580173880495" duration="4382000" />
+      <workItem from="1580173880495" duration="5072000" />
+      <workItem from="1580214255810" duration="62000" />
     </task>
     <task id="LOCAL-00001" summary="Ajustes">
       <created>1580175885980</created>
@@ -203,7 +196,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580175885980</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Cuentas Bancarias">
+      <created>1580178334390</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1580178334390</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,7 +212,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Ajustes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajustes" />
+    <MESSAGE value="Cuentas Bancarias" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cuentas Bancarias" />
   </component>
   <component name="WindowStateProjectService">
     <state x="449" y="140" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1576604621984">
@@ -223,10 +224,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1575138252198" />
-    <state x="393" y="8" key="CommitChangelistDialog2" timestamp="1580175884681">
+    <state x="393" y="8" key="CommitChangelistDialog2" timestamp="1580178333214">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="393" y="8" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1580175884681" />
+    <state x="393" y="8" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1580178333214" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1575984835403">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

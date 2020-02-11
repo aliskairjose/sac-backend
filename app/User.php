@@ -22,11 +22,11 @@ class  User extends Authenticatable implements JWTSubject {
         'cedula',
         'phone',
         'email',
-        'type',
         'residency_id',
         'floor',
         'apartment',
         'parking_lot',
+        'role_id',
         'password',
     ];
 
@@ -65,5 +65,10 @@ class  User extends Authenticatable implements JWTSubject {
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public function rol()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

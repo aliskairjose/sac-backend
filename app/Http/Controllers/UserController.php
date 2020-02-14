@@ -52,6 +52,7 @@ class UserController extends Controller
                     'floor'         => $request->floor,
                     'apartment'     => $request->apartment,
                     'parking_lot'   => $request->parking_lot,
+                    'main'          => $request->main,
                     'password'      => Hash::make($request->password),
                 ]
             );

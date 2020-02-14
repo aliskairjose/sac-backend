@@ -27,6 +27,7 @@ class  User extends Authenticatable implements JWTSubject {
         'apartment',
         'parking_lot',
         'role_id',
+        'main',
         'password',
     ];
 

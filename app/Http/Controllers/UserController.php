@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\UserCollection;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -27,6 +28,34 @@ class UserController extends Controller
                 'count'     => $data->count(),
                 'status'    => 200,
                 'object'    => $data,
+            ]
+        );
+    }
+
+    /**
+     * Recibe el id de la residencia y devuelve la lista de la junta de condominio
+     *
+     */
+    public function mainBoard($id)
+    {
+
+        try {
+            $data = User::mainboard($id);
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'error'     => $e
+                ]
+            );
+        }
+
+        return response()->json(
+            [
+                'isSuccess' => true,
+                'status'    => 200,
+                'objects'     => $data
             ]
         );
     }

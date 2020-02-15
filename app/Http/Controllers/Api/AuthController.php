@@ -7,8 +7,8 @@ use App\User;
 use App\Http\Resources\User as UserResource;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\JWTAuth as JWTAuthJWTAuth;
-use  JWTAuth;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 
 class  AuthController extends Controller
 {
@@ -28,18 +28,19 @@ class  AuthController extends Controller
                         'message'   => 'La combinación de inicio de sesión / correo electrónico no es correcta, intente nuevamente.',
                     ]
                 );
+            } else {
+                $user = new UserResource((User::where('email', '=', $request->get('email')))->firstOrFail());
+                $token = JWTAuth::claims(['user' => $user])->attempt($credentials);
             }
         } catch (JWTException $e) {
             return response()->json(['error' => 'Could not create token'], 500);
         }
 
-        $user = new UserResource((User::where('email', '=', $request->get('email')))->firstOrFail());
 
         return response()->json(
             [
                 'isSuccess' => true,
                 'token'     => $token,
-                'data'      => $user
             ]
         );
     }

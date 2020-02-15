@@ -26,7 +26,7 @@ class User extends JsonResource {
             'email'             => $this->email,
             // 'role'              => new \App\Http\Resources\Role($this->role),
             'role'              => $this->role->name,
-            'recidency_id'       => $this->building_id,
+            'residency_id'       => $this->building_id,
             'residency'         => $this->building->name,
             'floor'             => $this->floor,
             'apartment'         => $this->apartment,

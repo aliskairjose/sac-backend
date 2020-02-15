@@ -54,7 +54,9 @@ class  User extends Authenticatable implements JWTSubject {
     }
 
     public function getJWTCustomClaims() {
-        return [];
+        return [
+            'name' => $this->name
+        ];
     }
 
     /**
@@ -82,5 +84,12 @@ class  User extends Authenticatable implements JWTSubject {
     public function building()
     {
         return $this->belongsTo(Building::class);
+    }
+
+    public static function scopeMainBoard($query, $id)
+    {
+        if($id){
+            return $query->where('building_id','=', $id)->where('main','=', true)->get();
+        }
     }
 }

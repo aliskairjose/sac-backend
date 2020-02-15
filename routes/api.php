@@ -63,6 +63,7 @@ Route::post('/correo', function (Request $request) {
     Route::post('users', 'UserController@store');
     Route::put('users/{id}', 'UserController@update');
     Route::delete('users/{id}', 'UserController@delete');
+    Route::get('users/main/{id}', 'UserController@mainBoard');
 
     // Building Api's Routes
     Route::get('buildings', 'BuildingController@index');

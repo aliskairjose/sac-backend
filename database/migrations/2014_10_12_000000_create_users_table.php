@@ -15,12 +15,12 @@ class CreateUsersTable extends Migration {
             $table->increments( 'id' );
             $table->string( 'name', 50 )->nullable(false);
             $table->string( 'surname', 50 )->nullable(false);
-            $table->string( 'cedula', 15 )->index('cedula')->nullable(false);
-            $table->string( 'phone', 15 )->nullable();
+            $table->string( 'cedula', 15 )->index('cedula')->nullable(true);
+            $table->string( 'phone', 15 )->nullable(true);
             $table->string( 'email' )->unique()->nullable(false);
-            $table->integer( 'building_id' )->unsigned()->nullable(false);
-            $table->string('floor', 2)->nullable(false);
-            $table->string('apartment', 10)->unique()->nullable(false);
+            $table->integer( 'building_id' )->unsigned()->nullable(true);
+            $table->string('floor', 2)->nullable(true);
+            $table->string('apartment', 10)->unique()->nullable(true);
             $table->string('parking_lot', 4)->unique()->nullable();
             $table->string( 'password' )->nullable(false);
             $table->timestamps();

@@ -194,6 +194,51 @@ class UserController extends Controller
         );
     }
 
+    public function updatePhoto(Request $request)
+    {
+       /*  if ($request->hasFile('photo')) {
+            return response()->json(
+                [
+                    'data' =>  User::find($request->user_id),
+                    'photo' => $request->photo->store('public/images/profile/' . $request->user_id)
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                    // 'data' =>  User::find($id),
+                    'photo' => 'h'
+                ]
+            );
+        } */
+
+         try {
+            if ($request->hasFile('photo')) {
+
+                $path = $request->photo->store('public/images/profile/' . $request->user_id);
+                $data = User::find($request->user_id);
+                $data->photo = $path;
+                $data->save();
+            }
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'message'   => $e,
+                ]
+            );
+        }
+
+        return response()->json(
+            [
+                'isSuccess' => true,
+                'status'    => 200,
+                'message'   => 'Imagen actualizada con exito',
+            ]
+        );
+    }
+
     /**
      * Remove the specified resource from storage.
      *

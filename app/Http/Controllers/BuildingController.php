@@ -24,7 +24,7 @@ class BuildingController extends Controller
             'isSuccess' => true,
             'count'     => $data->count(),
             'status'    => 200,
-            'object'    => $data,
+            'objects'   => $data,
           ]
         );
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\BuildingCollection;
 use App\Building;
+use App\Http\Resources\Building as ResourcesBuilding;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -20,12 +21,12 @@ class BuildingController extends Controller
     {
         $data = new BuildingCollection(Building::all());
         return response()->json(
-          [
-            'isSuccess' => true,
-            'count'     => $data->count(),
-            'status'    => 200,
-            'objects'   => $data,
-          ]
+            [
+                'isSuccess' => true,
+                'count'     => $data->count(),
+                'status'    => 200,
+                'objects'   => $data,
+            ]
         );
     }
 
@@ -41,22 +42,22 @@ class BuildingController extends Controller
             $data = Building::create($request->all());
         } catch (Exception $e) {
             return response()->json(
-              [
-                'isSuccess' => false,
-                'message'   => 'Ha ocurrido un error',
-                'status'    => 400,
-                'error'     => $e
-              ]
+                [
+                    'isSuccess' => false,
+                    'message'   => 'Ha ocurrido un error',
+                    'status'    => 400,
+                    'error'     => $e
+                ]
             );
         }
 
         return response()->json(
-          [
-            'isSuccess' => true,
-            'message'   => 'La residencia se ha sido creada con exito!.',
-            'status'    => 200,
-            'data'      => $data,
-          ]
+            [
+                'isSuccess' => true,
+                'message'   => 'La residencia se ha sido creada con exito!.',
+                'status'    => 200,
+                'data'      => $data,
+            ]
         );
     }
 
@@ -71,23 +72,22 @@ class BuildingController extends Controller
         try {
 
             $data = new BuildingCollection(Building::findOrFail($id)->get());
-
         } catch (Exception $e) {
             return response()->json(
-              [
-                'isSuccess' => false,
-                'status'    => 400,
-                'message'   => $e,
-              ]
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'message'   => $e,
+                ]
             );
         }
 
         return response()->json(
-          [
-            'isSuccess' => true,
-            'status'    => 200,
-            'objects'   => $data,
-          ]
+            [
+                'isSuccess' => true,
+                'status'    => 200,
+                'objects'   => $data,
+            ]
         );
     }
 
@@ -104,20 +104,20 @@ class BuildingController extends Controller
             $data = Building::findOrFail($id)->update($request->all());
         } catch (\Exception $e) {
             return response()->json(
-              [
-                'isSuccess' => false,
-                'status'    => 400,
-                'message'   => $e,
-              ]
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'message'   => $e,
+                ]
             );
         }
         return response()->json(
-          [
-            'isSuccess' => true,
-            'status'    => 200,
-            'message'   => 'La residencia se ha actualizada con exito!.',
-            'objects'   => $data
-          ]
+            [
+                'isSuccess' => true,
+                'status'    => 200,
+                'message'   => 'La residencia se ha actualizada con exito!.',
+                'objects'   => $data
+            ]
         );
     }
 
@@ -133,28 +133,28 @@ class BuildingController extends Controller
             $data = Building::findOrFail($id)->delete();
         } catch (ModelNotFoundException $e) {
             return response()->json(
-              [
-                'isSuccess' => false,
-                'status'    => 400,
-                'message'   => 'No hubo coincidencia en la busqueda!.',
-              ]
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'message'   => 'No hubo coincidencia en la busqueda!.',
+                ]
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(
-              [
-                'isSuccess' => false,
-                'status'    => 400,
-                'message'   => $e,
-              ]
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'message'   => $e,
+                ]
             );
         }
 
         return response()->json(
-          [
-            'isSuccess' => true,
-            'status'    => 200,
-            'message'   => 'La residencia ha sido eliminada!.',
-          ]
+            [
+                'isSuccess' => true,
+                'status'    => 200,
+                'message'   => 'La residencia ha sido eliminada!.',
+            ]
         );
     }
 }

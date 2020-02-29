@@ -29,8 +29,8 @@ class  AuthController extends Controller
                     ]
                 );
             } else {
-                // $user = new UserResource((User::where('email', '=', $request->get('email')))->firstOrFail());
-                // $token = JWTAuth::claims(['user' => $user])->attempt($credentials);
+                $user = new UserResource((User::where('email', '=', $request->get('email')))->firstOrFail());
+                $token = JWTAuth::claims(['user' => $user])->attempt($credentials);
             }
         } catch (JWTException $e) {
             return response()->json(['error' => 'Could not create token'], 500);

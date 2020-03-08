@@ -194,31 +194,23 @@ class UserController extends Controller
         );
     }
 
-    public function updatePhoto(Request $request)
+    public function uploadPhoto(Request $request, $id)
     {
-       /*  if ($request->hasFile('photo')) {
-            return response()->json(
-                [
-                    'data' =>  User::find($request->user_id),
-                    'photo' => $request->photo->store('public/images/profile/' . $request->user_id)
-                ]
-            );
-        } else {
-            return response()->json(
-                [
-                    // 'data' =>  User::find($id),
-                    'photo' => 'h'
-                ]
-            );
-        } */
-
-         try {
+        try {
             if ($request->hasFile('photo')) {
 
-                $path = $request->photo->store('public/images/profile/' . $request->user_id);
-                $data = User::find($request->user_id);
+                $path = $request->photo->store('public/images/profile/' . $id);
+                $data = User::find($id);
                 $data->photo = $path;
                 $data->save();
+            } else {
+                return response()->json(
+                    [
+                        'isSuccess' => false,
+                        'status'    => 400,
+                        'message'   => 'Error',
+                    ]
+                );
             }
         } catch (Exception $e) {
             return response()->json(
@@ -235,6 +227,7 @@ class UserController extends Controller
                 'isSuccess' => true,
                 'status'    => 200,
                 'message'   => 'Imagen actualizada con exito',
+                'objects'   => $data
             ]
         );
     }

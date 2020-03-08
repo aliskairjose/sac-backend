@@ -62,7 +62,7 @@ Route::post('/correo', function (Request $request) {
     Route::get('users/cedula/{id}', 'UserController@showByCedula');
     Route::post('users', 'UserController@store');
     Route::put('users/{id}', 'UserController@update');
-    Route::post('users/photo/upload', 'UserController@updatePhoto');
+    Route::post('users/{id}/photo/upload', 'UserController@uploadPhoto');
     Route::delete('users/{id}', 'UserController@delete');
     Route::get('users/main/{id}', 'UserController@mainBoard');
 

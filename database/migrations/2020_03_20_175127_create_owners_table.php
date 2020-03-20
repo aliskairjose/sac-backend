@@ -15,6 +15,7 @@ class CreateOwnersTable extends Migration
     {
         Schema::create('owners', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string( 'email' )->unique()->nullable(false);
             $table->string('name', 50)->nullable(false);
             $table->string('surname', 50)->nullable(false);
             $table->string('cedula', 15)->index('cedula')->nullable(true);
@@ -25,8 +26,8 @@ class CreateOwnersTable extends Migration
             $table->string('password')->nullable(false);
             $table->boolean('main')->nullable(true)->comment('True si pertenece a la Junta de Condominio');
             $table->text('photo')->nullable(true)->comment('Imagen de perfil del usuario');
-            $table->unsignedInteger('building_id')->nullable(true);
-            $table->unsignedInteger('user_id')->nullable(true);
+            $table->unsignedBigInteger('building_id')->nullable(true);
+            $table->unsignedBigInteger('user_id')->nullable(true);
             $table->foreign('building_id')->references('id')->on('buildings');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

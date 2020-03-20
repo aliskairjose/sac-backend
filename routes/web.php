@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Connection;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,7 @@ use Illuminate\Database\Connection;
 Route::get('/', function () {
     $data = '';
     try {
-        DB::connection()->getPdo();
+        BD::connection()->getPdo();
         $data =  "Connected successfully to: " . DB::connection()->getDatabaseName();
     } catch (\Exception $e) {
         die("Could not connect to the database. Please check your configuration. error:" . $e );

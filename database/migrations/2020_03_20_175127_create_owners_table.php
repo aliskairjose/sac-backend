@@ -23,7 +23,6 @@ class CreateOwnersTable extends Migration
             $table->string('floor', 2)->nullable(true);
             $table->string('apartment', 10)->unique()->nullable(true);
             $table->string('parking_lot', 4)->unique()->nullable();
-            $table->string('password')->nullable(false);
             $table->boolean('main')->nullable(true)->comment('True si pertenece a la Junta de Condominio');
             $table->text('photo')->nullable(true)->comment('Imagen de perfil del usuario');
             $table->unsignedBigInteger('building_id')->nullable(true);

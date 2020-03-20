@@ -35,9 +35,9 @@ class Building extends Model
     /**
      * Relacion uno a muchos con Usuario
      */
-    public function users()
+    public function owners()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Owner::class);
     }
 
     /**

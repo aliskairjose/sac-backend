@@ -27,7 +27,7 @@ class Building extends Resource
             'apartments'        => $this->apartments,
             'rif'               => $this->rif,
             'accounts'          => new BankAccountCollection($this->accounts),
-            'owners'            => new UserCollection($this->users),
+            'owners'            => new OwnerCollection($this->owners),
             'persistanceState'  => 'Unchanged',
         ];
     }

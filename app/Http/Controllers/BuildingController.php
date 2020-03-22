@@ -71,7 +71,7 @@ class BuildingController extends Controller
     {
         try {
 
-            $data = new BuildingCollection(Building::findOrFail($id)->get());
+            $data = new ResourcesBuilding(Building::findOrFail($id));
         } catch (Exception $e) {
             return response()->json(
                 [

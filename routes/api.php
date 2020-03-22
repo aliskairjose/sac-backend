@@ -85,5 +85,5 @@ Route::post('/correo', function (Request $request) {
     Route::get('owners/{id}', 'OwnerControlle@show');
     Route::post('owners', 'OwnerControlle@store');
     Route::put('owners/{id}', 'OwnerControlle@update');
-    Route::delete('owners/{id}', '@delete');
+    Route::delete('owners/{id}', 'OwnerControlle@delete');
 // });

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Resources;
+
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -21,7 +22,7 @@ class Building extends Resource
             'name'              => $this->name,
             'email'             => $this->email,
             'state'             => $this->state,
-            'providence'        => $this->providence,
+            'city'              => $this->city,
             'address'           => $this->address,
             'floors'            => $this->floors,
             'apartments'        => $this->apartments,

@@ -15,7 +15,7 @@ class Building extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'state', 'providence', 'address', 'floors', 'apartments', 'rif'
+        'name', 'email', 'state', 'city', 'address', 'floors', 'apartments', 'rif'
     ];
 
     /**

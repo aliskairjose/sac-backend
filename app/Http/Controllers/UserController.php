@@ -43,18 +43,21 @@ class UserController extends Controller
         try {
             $data = User::create(
                 [
-                    'email'    => $request->email,
-                    'password' => Hash::make($request->password),
-                    'role_id'  => $request->role_id
+                    'name'        => $request->name,
+                    'email'       => $request->email,
+                    'password'    => Hash::make($request->password),
+                    'role_id'     => $request->role_id,
+                    'building_id' => $request->building_id
                 ]
             );
         } catch (\Exception $e) {
+
             return response()->json(
                 [
                     'isSuccess' => false,
                     'message'   => 'Ha ocurrido un error',
                     'status'    => 400,
-                    'error'     => $e
+                    'error'     => $e->getMessage()
                 ]
             );
         }
@@ -64,7 +67,7 @@ class UserController extends Controller
                 'isSuccess' => true,
                 'message'   => 'El usuario ha sido creado con exito!.',
                 'status'    => 200,
-                'objects'   => $data,
+                'objects'   => new UserResource($data),
             ]
         );
     }
@@ -84,7 +87,7 @@ class UserController extends Controller
                 [
                     'isSuccess' => false,
                     'status'    => 400,
-                    'message'   => $e,
+                    'message'   => $e->getMessage(),
                 ]
             );
         }

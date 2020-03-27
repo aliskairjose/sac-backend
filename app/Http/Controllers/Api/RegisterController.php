@@ -32,18 +32,15 @@ class RegisterController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
+                    'name' => 'required',
                     'email' => 'required|email',
                     'password' => 'required',
-                    // 'c_password' => 'required|same:password',
                 ]
             );
             if ($validator->fails()) {
                 return response()->json(['error' => $validator->errors()], 401);
             }
-            $input = $request->all();
-            $input['password'] = bcrypt($input['password']);
-            $user = User::create($input);
-            // $success['token'] =  $user->createToken('AppName')->accessToken;
+            $user = User::create($request->all());
         } catch (QueryException $e) {
             $error = $e->getMessage();
             return response()->json([
@@ -56,8 +53,9 @@ class RegisterController extends Controller
 
         return response()->json([
             'isSuccess' => true,
-            'status' => 201,
-            'message' => 'EL usuario ha sido creado.'
+            'status' => 200,
+            'message' => 'EL usuario ha sido creado.',
+            'objects' => $user
         ]);
     }
 
@@ -85,8 +83,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'email'     => $data['email'],
-            'password'  => Hash::make($data['password']),
+            'email'       => $data['email'],
+            'name'        => $data['name'],
+            'password'    => Hash::make($data['password']),
+            'building_id' => $data['building_id'],
+            'role_id'     => $data['role_id'],
         ]);
     }
 }

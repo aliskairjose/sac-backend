@@ -47,7 +47,7 @@ class BuildingController extends Controller
                     'isSuccess' => false,
                     'message'   => 'Ha ocurrido un error',
                     'status'    => 400,
-                    'error'     => $e
+                    'error'     => $e->getMessage()
                 ]
             );
         }
@@ -78,7 +78,7 @@ class BuildingController extends Controller
                 [
                     'isSuccess' => false,
                     'status'    => 400,
-                    'message'   => $e,
+                    'message'   => $e->getMessage(),
                 ]
             );
         }
@@ -108,7 +108,7 @@ class BuildingController extends Controller
                 [
                     'isSuccess' => false,
                     'status'    => 400,
-                    'message'   => $e,
+                    'message'   => $e->getMessage(),
                 ]
             );
         }
@@ -145,7 +145,7 @@ class BuildingController extends Controller
                 [
                     'isSuccess' => false,
                     'status'    => 400,
-                    'message'   => $e,
+                    'message'   => $e->getMessage(),
                 ]
             );
         }

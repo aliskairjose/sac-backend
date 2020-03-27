@@ -16,9 +16,9 @@ class CreateBuildingsTable extends Migration
         Schema::create('buildings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 50)->nullable(false);
-            $table->string('email', 70)->unique()->nullable(false);
-            $table->string('state', 30)->nullable();
-            $table->string('providence', 30)->nullable();
+            $table->string('email')->unique()->nullable(false);
+            $table->string('state', 100)->nullable();
+            $table->string('city', 100)->nullable();
             $table->text('address')->nullable();
             $table->string('floors', 2)->nullable();
             $table->string('apartments', 10)->nullable();

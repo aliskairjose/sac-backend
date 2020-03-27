@@ -14,8 +14,8 @@ class RoleSeeder extends Seeder
     {
         DB::table('roles')->updateOrInsert(
             [
-                'name' => 'soot',
-                'guard_name' => 'soor'
+                'name' => 'root',
+                'guard_name' => 'root'
             ]
         );
         DB::table('roles')->updateOrInsert(
@@ -26,7 +26,7 @@ class RoleSeeder extends Seeder
         );
         DB::table('roles')->updateOrInsert(
             [
-                'name' => 'aowner',
+                'name' => 'owner',
                 'guard_name' => 'owner'
             ]
         );

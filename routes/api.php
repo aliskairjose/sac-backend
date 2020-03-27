@@ -31,26 +31,6 @@ Route::post('/auth/register', 'Api\RegisterController@register');
 Route::post('password/email', 'Api\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::post('password/reset', 'Api\ResetPasswordController@reset')->name('password.reset');
 
-Route::post('/correo', function (Request $request) {
-
-    $email = $request->get('email');
-
-    try {
-
-        // Usando queue en lugar de send, el correo se envia en segundo plano!
-        Mail::to($email)->queue(new PasswordRecover($email));
-    } catch (\Exception $e) {
-        return response()->json([
-            'isSuccess' => false,
-            'message' => 'No se pudo enviar el mail a ' . $email
-        ]);
-    }
-
-    return response()->json([
-        'isSuccess' => true,
-        'messagge' => 'El mensaje ha sido enviado con exito a ' . $request->get('email') . '!.'
-    ]);
-});
 
 // Route::group(['middleware' => ['jwt.verify']], function () {
     /*AÑADE AQUI LAS RUTAS QUE QUIERAS PROTEGER CON JWT*/

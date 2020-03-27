@@ -59,12 +59,10 @@ Route::post('/correo', function (Request $request) {
     // Users Api's Routes
     Route::get('users', 'UserController@index');
     Route::get('users/{id}', 'UserController@show');
-    Route::get('users/cedula/{id}', 'UserController@showByCedula');
     Route::post('users', 'UserController@store');
     Route::put('users/{id}', 'UserController@update');
     Route::post('users/{id}/photo/upload', 'UserController@uploadPhoto');
     Route::delete('users/{id}', 'UserController@delete');
-    Route::get('users/main/{id}', 'UserController@mainBoard');
 
     // Building Api's Routes
     Route::get('buildings', 'BuildingController@index');
@@ -82,8 +80,8 @@ Route::post('/correo', function (Request $request) {
 
     // Owner Routes
     Route::get('owners', 'OwnerController@index');
-    Route::get('owners/{id}', 'OwnerControlle@show');
-    Route::post('owners', 'OwnerControlle@store');
-    Route::put('owners/{id}', 'OwnerControlle@update');
-    Route::delete('owners/{id}', 'OwnerControlle@delete');
+    Route::get('owners/{id}', 'OwnerController@show');
+    Route::post('owners', 'OwnerController@store');
+    Route::put('owners/{id}', 'OwnerController@update');
+    Route::delete('owners/{id}', 'OwnerController@delete');
 // });

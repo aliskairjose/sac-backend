@@ -33,34 +33,6 @@ class UserController extends Controller
     }
 
     /**
-     * Recibe el id de la residencia y devuelve la lista de la junta de condominio
-     *
-     */
-    public function mainBoard($id)
-    {
-
-        try {
-            $data = User::mainboard($id);
-        } catch (Exception $e) {
-            return response()->json(
-                [
-                    'isSuccess' => false,
-                    'status'    => 400,
-                    'error'     => $e
-                ]
-            );
-        }
-
-        return response()->json(
-            [
-                'isSuccess' => true,
-                'status'    => 200,
-                'objects'     => $data
-            ]
-        );
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
@@ -71,18 +43,9 @@ class UserController extends Controller
         try {
             $data = User::create(
                 [
-                    'name'          => $request->name,
-                    'surname'       => $request->surname,
-                    'cedula'        => $request->cedula,
-                    'phone'         => $request->phone,
-                    'email'         => $request->email,
-                    'building_id'  => $request->building_id,
-                    'role_id'       => 3,
-                    'floor'         => $request->floor,
-                    'apartment'     => $request->apartment,
-                    'parking_lot'   => $request->parking_lot,
-                    'main'          => $request->main,
-                    'password'      => Hash::make($request->password),
+                    'email'    => $request->email,
+                    'password' => Hash::make($request->password),
+                    'role_id'  => $request->role_id
                 ]
             );
         } catch (\Exception $e) {
@@ -131,35 +94,6 @@ class UserController extends Controller
                 'isSuccess' => true,
                 'status'    => 200,
                 'objects'   => $data,
-            ]
-        );
-    }
-
-    /**
-     * Display the specified resource by cedula
-     *
-     * @param string $cedula
-     * @return
-     */
-    public function showByCedula($id)
-    {
-        try {
-            $data = new UserCollection((User::where('cedula', $id))->get());
-        } catch (ModelNotFoundException $e) {
-            return response()->json(
-                [
-                    'isSuccess' => false,
-                    'status'    => 400,
-                    'errorInfo' => $e,
-                ]
-            );
-        }
-
-        return response()->json(
-            [
-                'isSuccess' => true,
-                'status'    => 200,
-                'objects'   => $data
             ]
         );
     }
@@ -241,8 +175,7 @@ class UserController extends Controller
     public function delete($id)
     {
         try {
-            $data = User::find($id);
-            $data->delete();
+            User::find($id)->delete();
         } catch (\Exception $e) {
             return response()->json(
                 [

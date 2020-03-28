@@ -18,7 +18,7 @@ class User extends JsonResource {
             'name'     => $this->name,
             'email'    => $this->email,
             'role'     => new Role($this->role),
-            'building' => $this->building
+            'building' => new Building($this->building)
         ];
     }
 }

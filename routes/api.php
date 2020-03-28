@@ -26,7 +26,6 @@ Route::post('/auth/login', 'Api\AuthController@login');
 Route::post('/auth/logout', 'Api\AuthController@logout');
 Route::post('/auth/register', 'Api\RegisterController@register');
 
-
 // Password Reset Routes
 Route::post('password/email', 'Api\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::post('password/reset', 'Api\ResetPasswordController@reset')->name('password.reset');

@@ -31,7 +31,7 @@ class SendWelcomeEmail
         $user = $event->user;
         Mail::send('emails.welcome-user', ['user' => $user], function ($message) use ($user) {
                 $message->from('hi@yourdomain.com', 'John Doe');
-                $message->subject('Welcome aboard '.$user->name.'!');
+                $message->subject('Bienvenido a SAC '.$user->name.'!');
                 $message->to($user->email);
         });
     }

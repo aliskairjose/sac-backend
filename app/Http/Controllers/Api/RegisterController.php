@@ -40,7 +40,9 @@ class RegisterController extends Controller
             if ($validator->fails()) {
                 return response()->json(['error' => $validator->errors()], 401);
             }
-            $user = User::create($request->all());
+            $user = $request->all();
+            $user['password'] = Hash::make($request->password);
+            $user = User::create($user);
         } catch (QueryException $e) {
             $error = $e->getMessage();
             return response()->json([
@@ -85,7 +87,7 @@ class RegisterController extends Controller
         return User::create([
             'email'       => $data['email'],
             'name'        => $data['name'],
-            'password'    => Hash::make($data['password']),
+            'password'    => $data['password'],
             'building_id' => $data['building_id'],
             'role_id'     => $data['role_id'],
         ]);

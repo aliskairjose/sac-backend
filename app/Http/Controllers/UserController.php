@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewUserRegistered;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -41,7 +42,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = User::create(
+            $user = User::create(
                 [
                     'name'        => $request->name,
                     'email'       => $request->email,
@@ -63,12 +64,15 @@ class UserController extends Controller
             );
         }
 
+        event(new NewUserRegistered($user));
+
+
         return response()->json(
             [
                 'isSuccess' => true,
                 'message'   => 'El usuario ha sido creado con exito!.',
                 'status'    => 200,
-                'objects'   => new UserResource($data),
+                'objects'   => new UserResource($user),
             ]
         );
     }

@@ -22,7 +22,7 @@ class Owner extends JsonResource
             'cedula' => $this->cedula,
             'phone' => $this->phone,
             'floor' => $this->floor,
-            'apatment' => $this->apartment,
+            'apartment' => $this->apartment,
             'parking_lot' => $this->parking_lot,
             'main' => $this->main,
             'photo' => $this->photo,

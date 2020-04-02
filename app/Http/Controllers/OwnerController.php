@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\OwnerCollection;
+use App\Owner;
+use App\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class OwnerController extends Controller
 {
@@ -13,17 +18,26 @@ class OwnerController extends Controller
      */
     public function index()
     {
-        //
-    }
+        try {
+            $data = new OwnerCollection(Owner::all());
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'message'   => 'Ha ocurrido un error',
+                    'status'    => 400,
+                    'error'     => $e->getMessage()
+                ]
+            );
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(
+            [
+                'isSuccess' => true,
+                'status'    => 200,
+                'objects'   => $data,
+            ]
+        );
     }
 
     /**
@@ -34,7 +48,58 @@ class OwnerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        try {
+            $path = '';
+
+            $user = User::create(
+                [
+                    "name"          => $request->name . ' ' . $request->surname,
+                    "email"         => $request->email,
+                    'password'      => Hash::make($request->cedula),
+                    'role_id'       => 2,
+                    'building_id'   => $request->building_id
+                ]
+            );
+
+            if ($request->hasFile('photo')) {
+                $path = $request->photo->store('public/images/onwer/' . $request->cedula);
+            }
+
+            $owner = Owner::create(
+                [
+                    'name' => $request->name,
+                    'surname' => $request->surname,
+                    'cedula' => $request->cedula,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'floor' => $request->floor,
+                    'apartment' => $request->apartment,
+                    'parking_lot' => $request->parking_lot,
+                    'main' => false,
+                    'building_id' => $request->building_id,
+                    'user_id' => $user->id,
+                    'photo' => $path,
+                ]
+            );
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'message'   => 'Ha ocurrido un error',
+                    'status'    => 400,
+                    'error'     => $e->getMessage()
+                ]
+            );
+        }
+        return response()->json(
+            [
+                'isSuccess' => true,
+                'status'    => 200,
+                'message'   => 'Nuevo propietario registrado',
+                'objects'   => $owner,
+            ]
+        );
     }
 
     /**

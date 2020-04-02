@@ -9,14 +9,14 @@ class Owner extends Model
 {
     use Notifiable;
 
-    protected $filliable = [
+    protected $fillable = [
         'email',
         'name',
         'surname',
         'cedula',
         'phone',
         'floor',
-        'apatment',
+        'apartment',
         'parking_lot',
         'main',
         'photo',

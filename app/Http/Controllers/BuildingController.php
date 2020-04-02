@@ -23,7 +23,6 @@ class BuildingController extends Controller
         return response()->json(
             [
                 'isSuccess' => true,
-                'count'     => $data->count(),
                 'status'    => 200,
                 'objects'   => $data,
                 'counts'    => $data->count()
@@ -57,7 +56,7 @@ class BuildingController extends Controller
                 'isSuccess' => true,
                 'message'   => 'La residencia se ha sido creada con exito!.',
                 'status'    => 200,
-                'data'      => $data,
+                'objects'   => $data,
             ]
         );
     }

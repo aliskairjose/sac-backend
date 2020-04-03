@@ -137,44 +137,6 @@ class UserController extends Controller
         );
     }
 
-    public function uploadPhoto(Request $request, $id)
-    {
-        try {
-            if ($request->hasFile('photo')) {
-
-                $path = $request->photo->store('public/images/profile/' . $id);
-                $data = User::find($id);
-                $data->photo = $path;
-                $data->save();
-            } else {
-                return response()->json(
-                    [
-                        'isSuccess' => false,
-                        'status'    => 400,
-                        'message'   => 'Error',
-                    ]
-                );
-            }
-        } catch (Exception $e) {
-            return response()->json(
-                [
-                    'isSuccess' => false,
-                    'status'    => 400,
-                    'message'   => $e,
-                ]
-            );
-        }
-
-        return response()->json(
-            [
-                'isSuccess' => true,
-                'status'    => 200,
-                'message'   => 'Imagen actualizada con exito',
-                'objects'   => $data
-            ]
-        );
-    }
-
     /**
      * Remove the specified resource from storage.
      *

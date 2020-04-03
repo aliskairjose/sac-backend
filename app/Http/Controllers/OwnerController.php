@@ -6,6 +6,7 @@ use App\Http\Resources\OwnerCollection;
 use App\Owner;
 use App\User;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -57,7 +58,7 @@ class OwnerController extends Controller
                     "name"          => $request->name . ' ' . $request->surname,
                     "email"         => $request->email,
                     'password'      => Hash::make($request->cedula),
-                    'role_id'       => 2,
+                    'role_id'       => 3,
                     'building_id'   => $request->building_id
                 ]
             );
@@ -102,6 +103,53 @@ class OwnerController extends Controller
         );
     }
 
+    public function uploadPhoto(Request $request, $id)
+    {
+        try {
+            if ($request->hasFile('photo')) {
+
+                $path = $request->photo->store('public/images/profile/' . $id);
+                $data = Owner::findOrFail($id);
+                $data->photo = $path;
+                $data->save();
+            } else {
+                return response()->json(
+                    [
+                        'isSuccess' => false,
+                        'status'    => 400,
+                        'message'   => 'Error',
+                    ]
+                );
+            }
+        } catch(ModelNotFoundException $e){
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'message'   => $e->getMessage(),
+                ]
+            );
+        }
+        catch (Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'message'   => $e->getMessage(),
+                ]
+            );
+        }
+
+        return response()->json(
+            [
+                'isSuccess' => true,
+                'status'    => 200,
+                'message'   => 'Imagen actualizada con exito',
+                'objects'   => $data
+            ]
+        );
+    }
+
     /**
      * Display the specified resource.
      *
@@ -113,15 +161,44 @@ class OwnerController extends Controller
         //
     }
 
+
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function userId($id)
     {
-        //
+        try {
+            $owner = Owner::getbyuser($id);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(
+                [
+                    'isSuccess' => true,
+                    'message'   => 'No se encontro registro',
+                    'status'    => 200,
+                    'error'     => $e->getMessage()
+                ]
+            );
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'message'   => 'Ha ocurrido un error',
+                    'status'    => 400,
+                    'error'     => $e->getMessage()
+                ]
+            );
+        }
+
+        return response()->json(
+            [
+                'isSuccess' => true,
+                'status' => 200,
+                'objects' => $owner
+            ]
+        );
     }
 
     /**
@@ -133,7 +210,42 @@ class OwnerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        try {
+            $owner = Owner::findOrFail($id);
+
+            $owner->name = $request->name;
+            $owner->surname = $request->surname;
+            $owner->email = $request->email;
+            $owner->phone = $request->phone;
+            $owner->cedula = $request->cedula;
+            $owner->floor = $request->floor;
+            $owner->apartment = $request->apartment;
+            $owner->parking_lot = $request->parking_lot;
+
+            if ($request->hasFile('photo')) {
+                $path = $request->photo->store('public/images/onwer/' . $request->cedula);
+                $owner->photo = $path;
+            }
+
+            $owner->save();
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'message'   => 'Ha ocurrido un error',
+                    'status'    => 400,
+                    'error'     => $e->getMessage()
+                ]
+            );
+        }
+        return response()->json(
+            [
+                'isSuccess' => true,
+                'status'    => 200,
+                'message'   => 'Registro actualizado!',
+            ]
+        );
     }
 
     /**

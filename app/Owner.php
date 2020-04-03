@@ -23,4 +23,9 @@ class Owner extends Model
         'building_id',
         'user_id'
     ];
+
+    public function scopeGetByUser($query, $id)
+    {
+        return $query->where('user_id', '=', $id)->get();
+    }
 }

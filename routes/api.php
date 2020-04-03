@@ -40,7 +40,7 @@ Route::post('password/reset', 'Api\ResetPasswordController@reset')->name('passwo
     Route::get('users/{id}', 'UserController@show');
     Route::post('users', 'UserController@store');
     Route::put('users/{id}', 'UserController@update');
-    Route::post('users/{id}/photo/upload', 'UserController@uploadPhoto');
+    // Route::post('users/upload/photo/{id}', 'UserController@uploadPhoto');
     Route::delete('users/{id}', 'UserController@delete');
 
     // Building Api's Routes
@@ -60,7 +60,9 @@ Route::post('password/reset', 'Api\ResetPasswordController@reset')->name('passwo
     // Owner Routes
     Route::get('owners', 'OwnerController@index');
     Route::get('owners/{id}', 'OwnerController@show');
+    Route::get('owners/user/{id}', 'OwnerController@userId');
     Route::post('owners', 'OwnerController@store');
+    Route::post('owners/upload/photo/{id}', 'OwnerController@uploadPhoto');
     Route::put('owners/{id}', 'OwnerController@update');
     Route::delete('owners/{id}', 'OwnerController@delete');
 // });

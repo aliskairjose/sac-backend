@@ -63,6 +63,7 @@ Route::post('password/reset', 'Api\ResetPasswordController@reset')->name('passwo
     Route::get('owners/user/{id}', 'OwnerController@userId');
     Route::post('owners', 'OwnerController@store');
     Route::post('owners/upload/photo/{id}', 'OwnerController@uploadPhoto');
+    Route::post('owners/import', 'OwnerController@import');
     Route::put('owners/{id}', 'OwnerController@update');
     Route::delete('owners/{id}', 'OwnerController@delete');
 // });

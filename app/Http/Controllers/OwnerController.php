@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\OwnerCollection;
+use App\Imports\Owner as ImportsOwner;
 use App\Owner;
 use App\User;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OwnerController extends Controller
 {
@@ -121,7 +123,7 @@ class OwnerController extends Controller
                     ]
                 );
             }
-        } catch(ModelNotFoundException $e){
+        } catch (ModelNotFoundException $e) {
             return response()->json(
                 [
                     'isSuccess' => false,
@@ -129,8 +131,7 @@ class OwnerController extends Controller
                     'message'   => $e->getMessage(),
                 ]
             );
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return response()->json(
                 [
                     'isSuccess' => false,
@@ -257,5 +258,37 @@ class OwnerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Importacion de propietarios por excel
+     */
+    public function import(Request $request)
+    {
+        return response()->json(
+            [
+                'isSuccess' => true,
+                'status' => 200,
+                'objects' => $request->all()
+            ]
+        );
+
+        try {
+            Excel::import(new ImportsOwner, request()->file('file'));
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                    'isSuccess' => false,
+                    'status'    => 400,
+                    'message'   => $e,
+                ]
+            );
+        }
+        return response()->json(
+            [
+                'isSuccess' => true,
+                'status'    => 200,
+            ]
+        );
     }
 }
